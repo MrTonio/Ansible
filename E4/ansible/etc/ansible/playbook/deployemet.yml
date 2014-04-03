@@ -1,0 +1,17 @@
+  - name: Transfert des fichiers hosts
+    shell: scp s-ansible:/opt/shinken/hosts/hosts.tar.gz /usr/local/shinken/etc/hosts
+
+  - name: Extraction du tar.gz 
+    shell: tar -xvzf /usr/local/shinken/etc/hosts/hosts.tar.gz && mkdir /usr/local/shinken/etc/hosts/serveurs && mkdir /usr/local/shinken/etc/hosts/routeurs
+
+  - name: Ajout des commandes pour NsClient ++ --> fichier commands.cfg
+    template: src=/opt/shinken/commands.cfg.j2 dest=/usr/local/shinken/etc/commands.cfg
+
+  - name: Ajout dU fichier hostgroups.cfg
+    template: src=/opt/shinken/hostgroups.cfg.j2 dest=/usr/local/shinken/etc/hostgroups.cfg  
+
+  - name: Ajout du fichier services.cfg
+    template: src=/opt/shinken/s-win.cfg.j2 dest=/usr/local/shinken/etc/services/s-win.cfg
+
+  - name: Ajout du fichier de dépendances 
+    template: src=/opt/shinken/dependencies.cfg.j2 dest=/usr/local/shinken/etc/dependencies.cfg

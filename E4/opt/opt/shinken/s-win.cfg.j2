@@ -1,0 +1,35 @@
+## In this directory you can put all your specific service
+# definitions
+
+define service {
+    use generic-service
+    #host_name s-win
+    hostgroup_name windows-server
+    service_description Espace disponnible C:
+    check_command check_nt_diskc!80,!90
+}
+
+
+define service{
+    use generic-service
+    #host_name xxxx
+    hostgroup_name windows-server
+    service_description Charge CPU
+    check_command check_nt_cpuload!80,!90
+}
+
+define service {
+    use generic-service
+    #host_name xxxx
+    hostgroup_name windows-server
+    service_description Ram
+    check_command check_nt_memuse!70,!90
+}
+
+define service{
+    use generic-service
+    #host_name xxxx
+    hostgroup_name windows-server
+    service_description Etat nscp
+    check_command check_nt_service!nscp
+

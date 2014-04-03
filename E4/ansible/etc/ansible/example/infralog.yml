@@ -1,0 +1,11 @@
+---
+- hosts: web
+  tasks:
+    notify:
+    - restart rsyslog
+  - name: ensure rsylog is running
+    service: name=rsyslog state=started
+  handlers:
+    - name: restart rsyslog
+      service: name=rsyslog state=restarted
+

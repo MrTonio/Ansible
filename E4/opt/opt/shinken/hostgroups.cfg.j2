@@ -1,0 +1,36 @@
+
+# A little host group. Host groups are important if you want to keep
+# managable your conf ;)
+
+#define hostgroup{
+#   hostgroup_name  linux-servers   ; The name of the hostgroup
+#   alias           Linux Servers   ; Long name of the group
+#   members         localhost,dc01  ; Comma separated list of hosts that belong to this group
+#   realm Europe
+#   }
+
+
+#define hostgroup{
+#   hostgroup_name  mysql-servers
+#   alias           mysql-servers
+#   members         databasehost1,databasehost-us
+#   }
+
+define hostgroup{
+   hostgroup_name srv-linux
+   alias s-linux
+   members s-infra,s-proxy,s-mon
+   }
+
+define hostgroup{
+   hostgroup_name routeur-linux
+   alias r-linux
+   members r-int,r-ext
+   }
+
+define hostgroup{
+   hostgroup_name windows-server
+   alias s-windows
+   members s-win
+   }
+

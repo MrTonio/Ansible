@@ -1,0 +1,37 @@
+---
+- hosts: web
+  tasks:
+#apache2
+  - name: ensure apache is at the latest version
+    apt: pkg=apache2 state=installed
+  - name: ensure php5 is at the latest version
+    apt: pkg=php5 state=installed
+    notify:
+    - restart apache2
+  - name: ensure apache is running
+    service: name=apache2 state=started
+  - name: installation du fichier index.html
+    copy: src=/root/file/index.html dest=/var/www/index.html
+
+# rsyslog + fichier host
+  - name: Ajoute infra  au fichier hosts
+    lineinfile: dest=/etc/hosts line="192.168.0.25 infra"
+  - name:  Active UDP rsyslog
+    lineinfile: dest=/etc/rsyslog.conf line="*.* @infra"
+    notify:
+    - restart rsyslog
+  - name: ensure rsylog is running
+    service: name=rsyslog state=started 
+
+# Installation dokuwiki
+  - name: Installation dokuwiki
+    shell: cd /var/www && export http_proxy=http://gw:8080 && wget -nc http://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
+  - name: Extraction du tar.gz
+    shell: cd /var/www && gunzip dokuwiki-stable.tgz && tar -xf dokuwiki-stable.tar && mv dokuwiki-2013-05-10a doku && cd doku && chown -R www-data:www-data data && chown -R www-data:www-data conf && cd .. && rm dokuwiki-stable.tar  
+# Fin    
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+    - name: restart rsyslog
+      service: name=rsyslog state=restarted
+

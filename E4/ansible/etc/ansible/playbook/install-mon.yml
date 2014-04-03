@@ -1,0 +1,22 @@
+---
+- hosts: shinken
+  tasks:
+
+  - name: update a server
+    apt: update_cache=yes
+  - name: upgrade a server
+    apt: upgrade=full
+
+  - name: Installation des prérequis
+    apt: pkg=curl state=installed
+
+ # - name: Export du proxy
+  #  shell: export http_proxy=http://10.121.32.69:8080 && https_proxy=https://10.121.32.69:8080
+
+  - name: Installation de Shinken
+    shell: curl -L http://install.shinken-monitoring.org | /bin/bash
+
+  - name: Installation des plugins 
+    shell: cd /usr/local/shinken && ./install -p manubulon && ./install -p nagios-plugins
+
+  - include: deployemet.yml

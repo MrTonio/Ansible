@@ -1,0 +1,2 @@
+pb git clone dépot shinken
+resolution de nom pour géné clef

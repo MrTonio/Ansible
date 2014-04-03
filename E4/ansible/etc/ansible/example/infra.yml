@@ -1,0 +1,25 @@
+---
+- hosts: adm
+  tasks:
+  - name: Active module UDP pour syslog
+    lineinfile: dest=/etc/rsyslog.conf line="$ModLoad imudp"
+  - name: Active module UDP pour syslog
+    lineinfile: dest=/etc/rsyslog.conf line="$UDPServerRun 514"
+    notify:
+    - restart rsyslog
+  - name: ensure rsyslog is running
+    service: name=rsyslog state=started
+  - name: Installation squid3
+    apt: pkg=squid3 state=installed
+  - name: Config proxy_squid
+    template: src=/root/file/squid.conf.j2 dest=/etc/squid3/squid.conf
+    notify:
+    - restart squid3
+  - name: ensure squid3 is running
+    service: name=squid3 state=started
+  handlers:
+    - name: restart rsyslog
+      service: name=rsyslog state=restarted
+    - name: restart squid3
+      service: name=squid3 state=restarted
+

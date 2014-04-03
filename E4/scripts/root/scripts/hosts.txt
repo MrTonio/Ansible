@@ -1,0 +1,8 @@
+s-infra:infra:172.16.0.1:linux
+s-proxy:proxy:172.16.0.2:linux
+s-appli:infra:172.16.0.3:linux
+s-win:win:172.16.0.6:linux
+r-int:int:192.168.200.254:linux
+r-ext:ext:192.168.200.253:linux
+s-ansible:ansible:172.16.0.1:linux
+s-mon:shinken:127.0.0.1:linux

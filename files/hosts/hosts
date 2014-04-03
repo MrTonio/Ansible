@@ -1,0 +1,14 @@
+ [adm]
+s-infra
+
+[serveurs]
+s-mon
+s-proxy
+
+[routeurs]
+r-ext
+r-int
+
+[shinken]
+s-mon
+~
