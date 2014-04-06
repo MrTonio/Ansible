@@ -13,10 +13,10 @@ my $mask   = "255.255.255.0";
 my $gw     = "172.16.0.254";
 my $dns1   = "172.16.0.6";
 my $dns2   = "172.16.0.1";
- 
 # les paquets a installer 
 my $maj = "aptitude update && aptitude upgrade -y";
 my $packages = "git curl vim python-dev python-yaml python-paramiko python-jinja2 git make expectk";
+
 sub putconf {
         my ($file, $comment, $msg)= @_;
         print "Generation du fichier $file ...\n";
@@ -26,22 +26,22 @@ sub putconf {
         print FILE $msg;
         close FILE;
 };
- 
-print "Recherche et installation des mises à jours" ;
+
+print "Recherche et installation des mises à jours\n" ;
 system "$maj" if ($packages);
 
-print "Installation des prérequis";
+print "Installation des prérequis\n";
 system "aptitude install $packages -y";
 
-print "Création des dossiers nécessaire";
+print "Création des dossiers nécessaire\n";
 system "mkdir /etc/ansible && mkdir /etc/playbook  && mkdir /opt/shinken && mkdir /opt/shinken/hosts && mkdir /root/scripts" ; 
 
-print "Installation d'ansible" ;
+print "Installation d'ansible\n" ;
 system "cd ~ && git clone https://github.com/ansible/ansible.git";
 system "cd ansible && make && make install";
 
 # Key gen
-print "Génération des clefs privée" ;
+print "Génération des clefs privée\n" ;
 
 putconf ("/root/serverlist", "#",
 "
